@@ -9,4 +9,4 @@ source ../makepath || die "$0: FAIL"
 
 [ "$(type -t makepath)" = "function" ] || die "$0: FAIL"
 
-echo "$0: ok"
+warn "$0: ok"
