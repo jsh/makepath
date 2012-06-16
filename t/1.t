@@ -1,12 +1,10 @@
 #!/bin/bash -eu
 
+source funcs.t
 
-die() { echo "$*" >&2; exit 1; }
-warn() { echo "$*" >&2; }
+describe-test "create a shell function named makepath"
+source ../makepath
 
-warn "$0: create a shell function named makepath"
-source ../makepath || die "$0: FAIL"
+[ "$(type -t makepath)" = "function" ]
 
-[ "$(type -t makepath)" = "function" ] || die "$0: FAIL"
-
-warn "$0: ok"
+success

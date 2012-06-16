@@ -1,3 +1,3 @@
 PATH += :
 test:
-	for i in *.t; do $$i; done
+	for i in *.t; do [ -x $$i ] && $$i; done
