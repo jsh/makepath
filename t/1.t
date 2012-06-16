@@ -1,8 +1,10 @@
 #!/bin/bash -eu
-# create a shell function named makepath
 
-die() { echo "$*"; exit 1; }
 
+die() { echo "$*" >&2; exit 1; }
+warn() { echo "$*" >&2; }
+
+warn "$0: create a shell function named makepath"
 source ../makepath
 
 [ "$(type -t makepath)" = "function" ] || die "$0: FAIL"
