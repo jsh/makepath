@@ -2,4 +2,3 @@ cannot create directory `/dev/loop0': File exists
 cannot create directory `/dev/null': File exists
 cannot create directory `File': File exists
 cannot create directory `Fifo': File exists
-cannot create directory `Bad': Permission denied

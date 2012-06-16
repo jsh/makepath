@@ -22,10 +22,6 @@ describe-subtest "Fail on a pre-existing Fifo"
 mkfifo Fifo
 ! makepath Fifo 2>> $failures
 [ -p Fifo ]
-describe-subtest "Fail if you lack permission"
-mkdir Bad
-chmod 000 Bad
-! makepath Bad/x 2>> $failures
 
 describe-subtest "Fail unless the error messages are accurate"
 sed -i 's/[^:]*: //' $failures
