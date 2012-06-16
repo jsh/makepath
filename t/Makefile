@@ -1,3 +1,6 @@
 PATH += :
+
 test:
-	for i in *.t; do [ -x $$i ] && $$i; done
+	for i in *.t; do if [ -x $$i ]; then $$i; fi done
+
+.PHONY: test
