@@ -1,0 +1,5 @@
+Write a shell function named makepath that, given a pathname, creates all
+components in that pathname as directories.  For example, the command
+makepath a/b/c/d should create directories a, a/b, a/b/c, and a/b/c/d.
+(THe mkdir -p command creates directories in this manner.  Solve the
+problem without using the without using mkdir -p.)
