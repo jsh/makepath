@@ -3,7 +3,7 @@
 
 die() { echo "$*" >&2; exit 1; }
 
-function makepath() {
+function make-one-path() {
 
   { [ -b "$@" ] || [ -c "$@" ] || [ -f "$@" ] || [ -p "$@" ]; } &&
     warn "$FUNCNAME: cannot create directory \`"$@"': File exists"
@@ -11,4 +11,10 @@ function makepath() {
   [ -e "$@" ] && return 0
   makepath $(dirname "$@") &&
     mkdir "$@"
+}
+
+function makepath() {
+  for i in "$@"; do
+    make-one-path "$i"
+  done
 }

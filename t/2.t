@@ -18,8 +18,12 @@ describe-subtest "create a subtree with an absolute path [$PWD/$$]"
 makepath $PWD/$$
 [ -d /$PWD/$$ ]
 
-describe-subtest "create directories with embedded blanks [hello world]"
+describe-subtest "create directories with embedded blanks ['hello world']"
 makepath 'hello world'
 [ -d 'hello world' ]
+
+describe-subtest "take multiple arguments [a b c d]"
+makepath a b c d
+[ -d a ] && [ -d b ] && [ -d c ] && [ -d d ]
 
 success
