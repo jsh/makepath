@@ -1,7 +1,7 @@
 # testfuncs -- base functions for testing
 
-die() { echo "$*" >&2; exit 1; }
-warn() { echo "$*" >&2; }
+die() { printf "$*\n" >&2; exit 1; }
+warn() { printf "$*\n" >&2; }
 work-in-temp-dir() {
   here=$(dirname $(readlink -f $0))
   testdir=/tmp/$$
@@ -19,4 +19,4 @@ setup() {
 fail() { die "$0: FAIL"; }
 success() { warn "$0: ok"; exit 0; }
 describe-test() { warn "$0: $*"; }
-describe-subtest() { warn "$0: $*"; }
+describe-subtest() { warn "\t- $*"; }
