@@ -14,7 +14,7 @@ mkdir Bad
 chmod 000 Bad
 ! makepath Bad/x 2>> $failures
 
-describe-subtest "Fail unless the error messages are accurate"
+describe-subtest "Report differences with 'mkdir -p'"
 sed -i 's/[^:]*: //' $failures
 if ! diff $here/${0/.t/.bmk} $failures; then
   mv $failures $here/${0/.t/.FAIL}
@@ -23,3 +23,5 @@ if ! diff $here/${0/.t/.bmk} $failures; then
     Expected messages in ${0/.t/.bmk}
   "
 fi
+
+success
