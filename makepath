@@ -1,4 +1,8 @@
 # makepath
 # given a pathname, create all components in that pathname as directories.
 
-function makepath() { mkdir -p $*; }
+function makepath() {
+  [ -e $1 ] && return 0
+  makepath $(dirname $1) &&
+    mkdir $1
+}
