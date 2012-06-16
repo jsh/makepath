@@ -1,4 +1,4 @@
-mkdir: cannot create directory `File': File exists
-mkdir: cannot create directory `Fifo': File exists
-mkdir: cannot create directory `/dev/null': File exists
-mkdir: cannot create directory `Bad': Permission denied
+cannot create directory `File': File exists
+cannot create directory `Fifo': File exists
+cannot create directory `/dev/null': File exists
+cannot create directory `Bad': Permission denied

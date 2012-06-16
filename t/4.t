@@ -23,6 +23,7 @@ describe-subtest "Fail if you lack permission"
 mkdir Bad
 chmod 000 Bad
 ! makepath Bad/x 2>> $failures
+sed -i 's/[^:]*: //' $failures
 
 if ! diff $here/${0/.t/.bmk} $failures; then
   mv $failures $here/${0/.t/.FAIL}
