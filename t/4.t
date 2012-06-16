@@ -24,6 +24,9 @@ mkdir Bad
 chmod 000 Bad
 ! makepath Bad/x 2>> $failures
 
-diff $here/${0/.t/.bmk} $failures
+if ! diff $here/${0/.t/.bmk} $failures; then
+  mv $failures $here/${0/.t/.FAIL}
+  fail
+fi
 
 success
