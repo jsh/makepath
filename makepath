@@ -1,21 +1,4 @@
 # makepath
 # given a pathname, create all components in that pathname as directories.
 
-die() { echo "$*" >&2; exit 1; }
-warn() { echo "$*" >&2; }
-
-function make-one-path() {
-
-  { [ -b "$@" ] || [ -c "$@" ] || [ -f "$@" ] || [ -p "$@" ]; } &&
-    warn "$FUNCNAME: cannot create directory \`"$@"': File exists"
-
-  [ -e "$@" ] && return 0
-  makepath $(dirname "$@") &&
-    mkdir "$@"
-}
-
-function makepath() {
-  for i in "$@"; do
-    make-one-path "$i"
-  done
-}
+function makepath() { mkdir -p "$@"; }
