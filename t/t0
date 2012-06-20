@@ -1,0 +1,13 @@
+#! /bin/bash
+# file: examples/equality_test.sh
+
+source funcs.t
+describe-test "this is a test"
+
+testHello()
+{
+  assertTrue 'this is a test' 'true'
+}
+
+# load shunit2
+source shunit2
