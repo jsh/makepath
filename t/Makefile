@@ -1,5 +1,5 @@
 test:
-	for i in *.t; do [ -x $$i ] || continue; $$i; done
+	for i in t*.sh; do $$i; done
 
 .SILENT:
 .PHONY: test

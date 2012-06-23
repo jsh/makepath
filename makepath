@@ -6,16 +6,24 @@ warn() { echo "$*" >&2; }
 
 function make-one-path() {
 
-  { [ -b "$@" ] || [ -c "$@" ] || [ -f "$@" ] || [ -p "$@" ]; } &&
-    warn "$FUNCNAME: cannot create directory \`"$@"': File exists"
+  [ -d "$@" ] && return 0
 
-  [ -e "$@" ] && return 0
-  makepath $(dirname "$@") &&
-    mkdir "$@"
+  { [ -b "$@" ] || [ -c "$@" ] || [ -f "$@" ] || [ -p "$@" ]; } &&
+    warn "makepath: cannot create directory \`$@': File exists" &&
+    return 1
+
+  makepath $(dirname "$@") || {
+    warn "makepath: cannot create directory \`$@': Permission denied" &&
+    return 1
+  }
+
+  mkdir "$@"
 }
 
+nerrs=0
 function makepath() {
   for i in "$@"; do
-    make-one-path "$i"
+    make-one-path "$i" || (( nerrs += 1 ))
   done
+  return $nerrs
 }

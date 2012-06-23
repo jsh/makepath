@@ -1,0 +1,8 @@
+Can't use bash -eu
+Can't stick an exit in the middle
+Assumes the path is the name of the test as invoked, and uses that during the run -- this prevents doing, say, a cd during oneTimeSetUp.
+Doesn't provide tap output.
+Doesn't have general chatter.
+No logging, redirection within tests.
+Can't do regex matching for assertEquals et al.
+No notion of benchmarks
