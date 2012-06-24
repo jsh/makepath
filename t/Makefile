@@ -9,7 +9,7 @@ out/%: ../makepath %
 	[ ! -x $* ] || ./$* > $@
 
 clean:
-	rm -rf out logfile
+	rm -rf out logfile *.FAIL
 
 .SILENT:
 .PHONY: clean test
