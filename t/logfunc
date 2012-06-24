@@ -1,12 +1,26 @@
-#!/bin/bash
+exec 8>&1
+exec 9>&2
 
-log() {
-  declare -i _logid=9
-  if [ ! $_logfile ]; then
-    exec 9> ${_logfile:=log}
-  fi
-
-  [ "$*" ] && echo $* >&$_logid
+warn() { printf "$*\n" >&9; }
 }
 
-log
+die() {
+  printf "$*\n" >&9
+  exit 1
+}
+
+error-logging() {
+  if [ "$1" = "off" ]; then
+    exec 2>&9
+  else
+    exec 2>>${_logfile:=log}
+  fi
+}
+
+output-logging() {
+  if [ "$1" = "off" ]; then
+    exec >&8
+  else
+    exec >>${_logfile:=log}
+  fi
+}
