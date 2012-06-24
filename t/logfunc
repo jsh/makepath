@@ -1,0 +1,12 @@
+#!/bin/bash
+
+log() {
+  declare -i _logid=9
+  if [ ! $_logfile ]; then
+    exec 9> ${_logfile:=log}
+  fi
+
+  [ "$*" ] && echo $* >&$_logid
+}
+
+log
