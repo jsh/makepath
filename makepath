@@ -1,19 +1,17 @@
 # makepath
 # given a pathname, create all components in that pathname as directories.
 
-warn() { printf "$*\n" >&2; }
-
 function make-one-path() {
 
   [ -d "$@" ] && return 0
 
   if [ -b "$@" ] || [ -c "$@" ] || [ -f "$@" ] || [ -p "$@" ]; then
-    warn "makepath: cannot create directory \`$@': File exists"
+    echo "makepath: cannot create directory \`$@': File exists" >&2
     return 1
   fi
 
   if ! makepath $(dirname "$@"); then
-    warn "makepath: cannot create directory \`$@': Permission denied"
+    echo "makepath: cannot create directory \`$@': Permission denied" &>2
     return 1
   fi
 
