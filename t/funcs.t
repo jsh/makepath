@@ -1,8 +1,11 @@
 # testfuncs -- base functions for testing
 
-# generics
-die() { printf "$*\n" >&2; exit 1; }
-warn() { printf "$*\n" >&2; }
+# cached copies of stdout & stderr
+exec 8>&1
+exec 9>&2
+
+warn() { printf "$*\n" >&9; }
+die() { printf "$*\n" >&9; exit 1; }
 
 # report failures, successes
 fail() { die "$0: not ok"; }
@@ -27,3 +30,22 @@ setup() {
   source ../makepath
   work-in-temp-dir
 }
+
+# logging
+
+error-logging() {
+  if [ "$1" = "off" ]; then
+    exec 2>&9
+  else
+    exec 2>>${_logfile:=log}
+  fi
+}
+
+output-logging() {
+  if [ "$1" = "off" ]; then
+    exec >&8
+  else
+    exec >>${_logfile:=log}
+  fi
+}
+
