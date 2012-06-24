@@ -1,33 +1,27 @@
 #!/bin/bash -eu
 
 source funcs.t
-
+error-logging on
 describe-test "Fail when you should fail."
-
 setup
 
-failures=Failures.OUT
-> $failures
 describe-subtest "Fail on a block special file"
-! makepath /dev/loop0 2>> $failures
+! makepath /dev/loop0 
 [ -b /dev/loop0 ]
 describe-subtest "Fail on a character special file"
-! makepath /dev/null 2>> $failures
+! makepath /dev/null
 [ -c /dev/null ]
 describe-subtest "Fail on a pre-existing File"
 touch File
-! makepath File 2>> $failures
+! makepath File
 [ -f File ]
 describe-subtest "Fail on a pre-existing Fifo"
 mkfifo Fifo
-! makepath Fifo 2>> $failures
+! makepath Fifo
 [ -p Fifo ]
-
-describe-subtest "Fail unless the error messages are accurate"
-sed -i 's/[^:]*: //' $failures
-if ! diff $here/${0/.t/.bmk} $failures; then
-  mv $failures $here/${0/.t/.FAIL}
-  fail
-fi
+describe-subtest "Fail if you lack permission"
+mkdir Bad
+chmod 000 Bad
+! makepath Bad/x
 
 success

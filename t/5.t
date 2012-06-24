@@ -9,10 +9,13 @@ setup
 failures=/tmp/Failures.OUT
 > $failures
 
-describe-subtest "Fail if you lack permission"
-mkdir Bad
-chmod 000 Bad
-! makepath Bad/x 2>> $failures
+
+#describe-subtest "Fail unless the error messages are accurate"
+#sed -i 's/[^:]*: //' logfile
+#if ! diff $here/${0/.t/.bmk} logfile; then
+#  mv $failures $here/${0/.t/.FAIL}
+#  fail
+#fi
 
 describe-subtest "Report differences with 'mkdir -p'"
 sed -i 's/[^:]*: //' $failures
