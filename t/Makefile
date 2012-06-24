@@ -1,5 +1,15 @@
-test:
-	for i in *.t; do [ -x $$i ] && ./$$i; done
+
+tests := $(wildcard *.t)
+out   := $(tests:%=out/%)
+
+test: $(out)
+
+out/%: ../makepath %
+	[ -d out ] || mkdir out
+	[ ! -x $* ] || ./$* > $@
+
+clean:
+	rm -rf out
 
 .SILENT:
-.PHONY: test
+.PHONY: clean test
