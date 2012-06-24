@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PATH  := /usr/local/bin:/usr/bin:/bin:
 
-clean test:
+test clean:
 	$(MAKE) -C t $@
 
 .SILENT:
