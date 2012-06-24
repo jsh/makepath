@@ -15,13 +15,17 @@ success() { warn "$0: ok"; exit 0; }
 describe-test() { warn "$0: $*"; }
 describe-subtest() { warn "\t- $*"; }
 
-# do all work in temporariy directory
+# work in temporary directory
+cleanup-tempfiles() {
+  [ -f "${_logfile:=}" ] && mv $_logfile $here/out/${0/.t/.log}
+  rm -rf $_testdir
+}
 work-in-temp-dir() {
   here=$(dirname $(readlink -f $0))
   _testdir=/tmp/$$
   rm -rf $_testdir; mkdir $_testdir; cd $_testdir
 
-  trap 'rm -rf $_testdir' EXIT;
+  trap 'cleanup-tempfiles' EXIT;
   trap 'fail' ERR;
 }
 
@@ -37,7 +41,7 @@ error-logging() {
   if [ "$1" = "off" ]; then
     exec 2>&9
   else
-    exec 2>>${_logfile:=log}
+    exec 2>>${_logfile:=logfile}
   fi
 }
 
@@ -45,7 +49,7 @@ output-logging() {
   if [ "$1" = "off" ]; then
     exec >&8
   else
-    exec >>${_logfile:=log}
+    exec >>${_logfile:=/tmp/logfile}
   fi
 }
 
